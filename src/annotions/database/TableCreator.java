@@ -33,7 +33,6 @@ public class TableCreator {
 				String tableName = dbTable.name();
 				
 				
-				
 				// If the name is empty , use the Class Name
 				if(tableName.length() < 1)
 					tableName = cl.getName().toUpperCase();
@@ -85,6 +84,8 @@ public class TableCreator {
 		}
 		
 	}
+	
+	
 	private static String getConstraints(Constraints con){
 		String constraints = "";
 		if(!con.allowNull())
