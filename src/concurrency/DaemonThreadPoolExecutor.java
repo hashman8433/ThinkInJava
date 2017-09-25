@@ -22,13 +22,6 @@ public class DaemonThreadPoolExecutor extends ThreadPoolExecutor{
 				new DaemonThreadFactory()) ;
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		ExecutorService exec = Executors.newCachedThreadPool(
-				new DaemonThreadFactory());
-		for(int i = 0; i < 10; i++)
-			exec.execute(new DaemonFromFactory());
-		System.out.print("All daemons stared");
-		TimeUnit.MICROSECONDS.sleep(500);
-	}
+	
 
 }

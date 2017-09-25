@@ -1,5 +1,7 @@
 package concurrency;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import common.AbstractBaseConrrency;
@@ -26,5 +28,12 @@ public class DaemonFromFactory extends AbstractBaseConrrency implements Runnable
 		}
 	}
 	
-
+	public static void main(String[] args) throws InterruptedException {
+		ExecutorService exec = Executors.newCachedThreadPool(
+				new DaemonThreadFactory());
+		for(int i = 0; i < 10; i++)
+			exec.execute(new DaemonFromFactory());
+		System.out.println("All daemons stared");
+		TimeUnit.MICROSECONDS.sleep(500);
+	}
 }
