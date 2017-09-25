@@ -18,7 +18,7 @@ class Daemon implements Runnable {
 		while(true)
 			Thread.yield();
 	}
-	
+
 }
 
 class DaemonSpawn implements  Runnable {
