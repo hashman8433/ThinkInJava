@@ -1,4 +1,4 @@
-package concurrency;
+package concurrency.p212;
 
 /**
  * ClassName:SelfManaged.java

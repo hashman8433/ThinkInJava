@@ -1,4 +1,4 @@
-package concurrency.practice;
+package concurrency.p212.practice;
 
 import java.util.ArrayList;
 import java.util.List;
