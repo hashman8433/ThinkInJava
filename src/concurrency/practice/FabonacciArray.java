@@ -3,6 +3,15 @@ package concurrency.practice;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 
+ * ClassName:FabonacciArray.java
+ * Reason:	 
+ *
+ * @author   zhaozj
+ * @since    Ver 1.1
+ * @Date	 2017年9月26日
+ */
 /*斐波那契数列 */
 public class FabonacciArray implements Runnable {
 	private static int count;
@@ -16,6 +25,7 @@ public class FabonacciArray implements Runnable {
 	}
 	//斐波那契数列：1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
 	/**
+	 * x
 	 * 若 times 过大则导致内存溢出
 	 * @param number
 	 * 	number[0] 第 n - 2 个数字
