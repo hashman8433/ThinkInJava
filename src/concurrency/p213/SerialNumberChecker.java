@@ -64,6 +64,9 @@ public class SerialNumberChecker {
 		for(int i = 0; i < SIZE; i++)
 			exec.execute(new SerialChecker());
 		// Stop after n seconds if there's an argument:
+		String[] str = {"12314325"};
+		//args = str;
+		System.out.println(args.length);
 		if(args.length > 0) {
 			TimeUnit.SECONDS.sleep(new Integer(args[0]));
 			System.out.println("No duplicates detected");

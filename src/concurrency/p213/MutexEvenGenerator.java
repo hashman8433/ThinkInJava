@@ -20,6 +20,7 @@ public class MutexEvenGenerator extends IntGenerator {
 	public int next() {
 		lock.lock();
 		try {
+			++currentEvenValue;
 			Thread.yield();// Cause failure faster
 			++currentEvenValue;
 			return currentEvenValue;
