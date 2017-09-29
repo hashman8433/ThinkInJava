@@ -3,6 +3,8 @@ package concurrency.p213;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -55,11 +57,91 @@ abstract class PairManager {
 			TimeUnit.MILLISECONDS.sleep(50);
 		} catch (InterruptedException ignor) {}
 	}
+	
 	public abstract void increment();
 }
 
+//Synchronize the entire method:
+class PairManager1 extends PairManager {
+	
+	public synchronized void increment() {
+		Pair temp;
+		p.incrementX();
+		p.incrementY();
+		temp = getPair();
+		store(temp);
+	}
+}
 
+// Use a critical section:
+class PairManager2 extends PairManager {
+	public void increment() {
+		Pair temp;
+		synchronized(this) {
+			p.incrementX();
+			p.incrementY();
+			temp = getPair();
+		}
+		store(temp);
+	}
+}
+
+class PairManipulator implements Runnable {
+	private PairManager pm;
+	public PairManipulator(PairManager pm) {
+		this.pm = pm;
+	}
+	public void run() {
+		while(true)
+			pm.increment();
+	}
+	public String toString() {
+		return "Pair: " + pm.getPair() +
+				" checkCounter = " + pm.checkCounter.get();
+	}
+}
+
+class PairChecker implements Runnable {
+	private PairManager pm;
+	public PairChecker(PairManager pm) {
+		this.pm = pm;
+	}
+	public void run() {
+		while(true) {
+			pm.checkCounter.incrementAndGet();
+			pm.getPair().checkState();
+		}
+	}
+}
 
 public class CriticalSection {
-
+	// Test the two different approaches:
+	static void
+	testApproaches(PairManager pman1, PairManager pman2) {
+		ExecutorService exec = Executors.newCachedThreadPool();
+		PairManipulator
+			pm1 = new PairManipulator(pman1),
+			pm2 = new PairManipulator(pman2);
+		PairChecker
+			pcheck1 = new PairChecker(pman1),
+			pcheck2 = new PairChecker(pman2);
+		exec.execute(pm1);
+		exec.execute(pm2);
+		exec.execute(pcheck1);
+		exec.execute(pcheck2);
+		
+		try {
+			TimeUnit.MILLISECONDS.sleep(500);
+		} catch (InterruptedException e) {
+			System.out.println("Sleep interrupted");
+		}
+		System.out.println("pm1: " + pm1 + "\npm2: " + pm2);
+		System.exit(0);
+	}
+	public static void main(String[] args) {
+		PairManager
+			pman1 = new PairManager1(),
+			pman2 = new PairManager2();
+		testApproaches(pman1, pman2);
+	}
 }
