@@ -14,7 +14,7 @@ class MyException2 extends Exception {
 }
 
 
-public class Ingeriting2 {
+public class Inheriting2 {
 	
 	public static void f() throws MyException2 {
 		System.out.println(
