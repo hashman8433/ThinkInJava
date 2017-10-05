@@ -20,7 +20,7 @@ public class SortVector extends Vector {
 			int i = left - 1;
 			int j = right;
 			while (true) {
-				while (i < right && compare.lessThan(elementAt(++i), o1));
+				while (compare.lessThan(elementAt(++i), o1));
 				
 				while (j > left)
 					if (compare.lessThanEqual(elementAt(--j), o1))
@@ -36,16 +36,28 @@ public class SortVector extends Vector {
 		}
 	}
 
-	/* 修改版本
-	 * public void quickSort(int left, int right) { if(left < right) { Object o1
-	 * = elementAt(right); int i = left - 1; int j = right + 1; while(true) {
-	 * while(j > left && compare.lessThan( elementAt(--j), o1));
-	 * 
-	 * while(i < right && compare.lessThanEqual( elementAt(++i), o1));
-	 * 
-	 * if(i >= j) break; swap(i, j); } quickSort(left, i - 1); quickSort(i + 1,
-	 * right); } }
-	 */
+	/*public void quickSort(int left, int right) {
+		if (left < right) {
+			Object o1 = elementAt(right);
+			int i = left - 1;
+			int j = right + 1;
+			while (true) {
+				while (j > left && compare.lessThan(elementAt(--j), o1))
+					;
+
+				while (i < right && !compare.lessThanEqual(elementAt(++i), o1))
+					;
+
+				if (i >= j)
+					break;
+				swap(i, j);
+			}
+			quickSort(left, i - 1);
+			quickSort(i + 1, right);
+		}
+	}*/
+	
+	 
 	public void swap(int loc1, int loc2) {
 		Object temp = elementAt(loc1);
 		setElementAt(elementAt(loc2), loc1);
