@@ -16,6 +16,7 @@ public class Stacks {
 		for(int i = 0; i < months.length; i++)
 			stk.push(months[i]);
 		
+		
 		System.out.println("stl = " + stk);
 		// Treating a stack as a Vector:
 		stk.addElement("The last line");
